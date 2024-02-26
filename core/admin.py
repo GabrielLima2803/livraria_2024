@@ -6,10 +6,11 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
 
 from core import models
-from .models import Categoria
+from .models import Categoria, Editora
 
 
 admin.site.register(Categoria)
+admin.site.register(Editora)
 
 class UserAdmin(BaseUserAdmin):
     """Define the admin pages for users."""

@@ -9,12 +9,15 @@ from drf_spectacular.views import (
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from core.views import UserViewSet, CategoriaViewSet
+from core.views import UserViewSet, CategoriaViewSet, EditoraViewSet
+
+from core.views.user import login, register
 
 router = DefaultRouter()
 
 router.register(r"users", UserViewSet, basename="users")
 router.register(r"categorias", CategoriaViewSet, basename="categorias")
+router.register(r"editoras", EditoraViewSet, basename="editoras")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -35,4 +38,6 @@ urlpatterns = [
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     # API
     path("api/", include(router.urls)),
+    path('api/login/', login, name='login'),
+    path('api/register/', register, name='register'),
 ]
