@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "rest_framework",
     "rest_framework_simplejwt",
+    "uploader",
     "core",
 ]
 
@@ -148,5 +149,11 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "API para o projeto <descreva aqui seu projeto>.",
     "VERSION": "1.0.0",
 }
+
+# App Uploader settings
+MEDIA_URL = "http://0.0.0.0:19003/api/media/"
+MEDIA_ENDPOINT = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+FILE_UPLOAD_PERMISSIONS = 0o640
 
 print(f"MODE: {MODE} \nMEDIA_URL: {MEDIA_URL} \nDATABASE: {DATABASES}")
