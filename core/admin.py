@@ -82,4 +82,5 @@ class LivroAdmin(admin.ModelAdmin):
     list_per_page = 25
 
 admin.site.register(models.Compra)
+admin.site.register(models.ItensCompra)
 
