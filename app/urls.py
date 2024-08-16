@@ -13,7 +13,7 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from core.views import UserViewSet, CategoriaViewSet, EditoraViewSet, AutorViewSet, LivroViewSet
+from core.views import UserViewSet, CategoriaViewSet, EditoraViewSet, AutorViewSet, LivroViewSet, CompraViewSet
 
 from core.views.user import login, register
 
@@ -27,6 +27,7 @@ router.register(r"categorias", CategoriaViewSet, basename="categorias")
 router.register(r"editoras", EditoraViewSet, basename="editoras")
 router.register(r"autores", AutorViewSet, basename="autores")
 router.register(r"livros", LivroViewSet, basename="livros")
+router.register(r"compras", CompraViewSet, basename="compras")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
