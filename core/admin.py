@@ -81,3 +81,5 @@ class LivroAdmin(admin.ModelAdmin):
     ordering = ('titulo', 'editora', 'categoria')
     list_per_page = 25
 
+admin.site.register(models.Compra)
+
