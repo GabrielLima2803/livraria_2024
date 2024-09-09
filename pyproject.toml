@@ -73,3 +73,8 @@ exclude = '''
  )/
 '''
 
+
+[[tool.pdm.autoexport]]
+filename = "requirements.txt"
+without-hashes = "true"
+
