@@ -3,13 +3,13 @@ from rest_framework.serializers import CharField, ModelSerializer, SerializerMet
 from core.models import Compra, ItensCompra
 
 class ItensCompraSerializer(ModelSerializer):
-    total = SerializerMethodField()
+    total_itens = SerializerMethodField()
 
-    def get_total(self, instance):
+    def get_total_itens(self, instance):
         return instance.livro.preco * instance.quantidade
     class Meta:
         model = ItensCompra
-        fields = ("livro", "quantidade", "total")
+        fields = ("livro", "quantidade", "total_itens")
         depth = 1
 class CompraSerializer(ModelSerializer):
     usuario = CharField(source="user.email", read_only=True)
@@ -17,5 +17,5 @@ class CompraSerializer(ModelSerializer):
     itens = ItensCompraSerializer(many=True, read_only=True) 
     class Meta:
         model = Compra
-        fields = "__all__"
+        fields = ("id", "usuario", "status", "total", "itens")
 
