@@ -1,8 +1,8 @@
 """
 Database models.
 """
-import uuid
 
+import uuid
 
 from django.contrib.auth.models import (
     AbstractBaseUser,
@@ -10,8 +10,8 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.db import models
-from uploader.models import Image
 
+from uploader.models import Image
 
 
 class UserManager(BaseUserManager):

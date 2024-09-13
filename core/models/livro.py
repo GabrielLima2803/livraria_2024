@@ -1,4 +1,5 @@
 from django.db import models
+
 from core.models import Autor, Categoria, Editora
 from uploader.models import Image
 
@@ -20,8 +21,6 @@ class Livro(models.Model):
         blank=True,
         default=None,
     )
-
-
 
     def __str__(self):
         return f"{self.titulo}  R$({self.preco})"

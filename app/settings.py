@@ -3,6 +3,7 @@ from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
+
 # Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
 

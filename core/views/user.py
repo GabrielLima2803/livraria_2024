@@ -1,16 +1,19 @@
+from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth.hashers import check_password
+from django.db.models import Q
+
+from rest_framework import status
+from rest_framework.decorators import (
+    api_view,
+    authentication_classes,
+    permission_classes,
+)
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 
 from core.models import User
 from core.serializers import UserSerializer
-
-from django.db.models import Q
-from django.contrib.auth import authenticate, get_user_model
-from django.contrib.auth.hashers import check_password
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.viewsets import ModelViewSet
-from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 
 
 class UserViewSet(ModelViewSet):
@@ -25,12 +28,12 @@ def register(request):
     username = request.data.get("username")
     email = request.data.get("email")
     password = request.data.get("password")
-    
+
     if User.objects.filter(username=username).exists():
         return Response({"message": "Usuário já existente!"}, status=status.HTTP_400_BAD_REQUEST)
     elif User.objects.filter(email=email).exists():
         return Response({"message": "Email já está sendo utilizado!"}, status=status.HTTP_400_BAD_REQUEST)
-    
+
     if username and email and password:
         user = User.objects.create(username=username, email=email)
         user.set_password(password)
@@ -45,6 +48,7 @@ def register(request):
         return Response(response_data, status=status.HTTP_200_OK)
     else:
         return Response({"message": "Dados de usuário inválidos!"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(["POST"])
 @authentication_classes([])

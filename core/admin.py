@@ -1,14 +1,14 @@
 """
 Django admin customization.
 """
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
 
 from core import models
-from .models import Categoria, Editora, Livro, Autor, ItensCompra, Compra
 
-
+from .models import Autor, Categoria, Compra, Editora, ItensCompra, Livro
 
 
 class UserAdmin(BaseUserAdmin):
@@ -52,38 +52,45 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.register(models.User, UserAdmin)
+
+
 @admin.register(Autor)
 class AutorAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'email')
-    search_fields = ('nome', 'email')
-    list_filter = ('nome',)
-    ordering = ('nome', 'email')
+    list_display = ("nome", "email")
+    search_fields = ("nome", "email")
+    list_filter = ("nome",)
+    ordering = ("nome", "email")
+
 
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
-    list_display = ('descricao',)
-    search_fields = ('descricao',)
-    list_filter = ('descricao',)
-    ordering = ('descricao',)
+    list_display = ("descricao",)
+    search_fields = ("descricao",)
+    list_filter = ("descricao",)
+    ordering = ("descricao",)
+
 
 @admin.register(Editora)
 class EditoraAdmin(admin.ModelAdmin):
-    list_display = ('nome',)
-    search_fields = ('nome',)
-    list_filter = ('nome',)
-    ordering = ('nome',)
+    list_display = ("nome",)
+    search_fields = ("nome",)
+    list_filter = ("nome",)
+    ordering = ("nome",)
+
 
 @admin.register(Livro)
 class LivroAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'editora', 'categoria')
-    search_fields = ('titulo', 'editora__nome', 'categoria__descricao')
-    list_filter = ('editora', 'categoria')
-    ordering = ('titulo', 'editora', 'categoria')
+    list_display = ("titulo", "editora", "categoria")
+    search_fields = ("titulo", "editora__nome", "categoria__descricao")
+    list_filter = ("editora", "categoria")
+    ordering = ("titulo", "editora", "categoria")
     list_per_page = 25
+
 
 class ItensCompraInline(admin.TabularInline):
     model = ItensCompra
-    extra = 1 
+    extra = 1
+
 
 @admin.register(Compra)
 class CompraAdmin(admin.ModelAdmin):
