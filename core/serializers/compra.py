@@ -1,4 +1,4 @@
-from rest_framework.serializers import CharField, ModelSerializer, SerializerMethodField
+from rest_framework.serializers import CharField, ModelSerializer, SerializerMethodField, CurrentUserDefault, HiddenField
 
 from core.models import Compra, ItensCompra
 
@@ -16,7 +16,7 @@ class ItensCompraSerializer(ModelSerializer):
 
 
 class CompraSerializer(ModelSerializer):
-    usuario = CharField(source="user.email", read_only=True)
+    usuario = CharField(source="usuario.email", read_only=True)
     status = CharField(source="get_status_display", read_only=True)
     itens = ItensCompraSerializer(many=True, read_only=True)
 
@@ -26,12 +26,14 @@ class CompraSerializer(ModelSerializer):
 
 
 class CriarEditarItensCompraSerializer(ModelSerializer):
+    
     class Meta:
         model = ItensCompra
         fields = ("livro", "quantidade")
 
 
 class CriarEditarCompraSerializer(ModelSerializer):
+    usuario = HiddenField(default=CurrentUserDefault())
     itens = CriarEditarItensCompraSerializer(many=True)
 
     class Meta:

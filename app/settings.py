@@ -138,9 +138,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "core.User"
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "core.authentication.TokenAuthentication",
+                                       ),
     # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.DjangoModelPermissions",),
-    "DEFAULT_AUTHENTICATION_CLASSES": ("core.authentication.TokenAuthentication",),
     # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly",),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
@@ -165,3 +167,5 @@ PASSAGE_API_KEY = os.getenv("PASSAGE_API_KEY", "api_key")
 PASSAGE_AUTH_STRATEGY = 2
 
 print(f"MODE: {MODE} \nMEDIA_URL: {MEDIA_URL} \nDATABASE: {DATABASES}")
+
+
