@@ -57,7 +57,7 @@ class CriarEditarCompraSerializer(ModelSerializer):
         itens = validated_data.pop("itens")
         compra = Compra.objects.create(**validated_data)
         for item in itens:
-            item["preco"] = item["livro"].preco # nova linha
+            item["preco"] = item["livro"].preco
             ItensCompra.objects.create(compra=compra, **item)
         compra.save()
         return compra
@@ -67,7 +67,7 @@ class CriarEditarCompraSerializer(ModelSerializer):
         if itens:
             instance.itens.all().delete()
             for item in itens:
-                item["preco"] = item["livro"].preco # nova linha
+                item["preco"] = item["livro"].preco 
                 ItensCompra.objects.create(compra=instance, **item)
         instance.save()
         return super().update(instance, validated_data)

@@ -1,7 +1,12 @@
 from django.db import models
+from django.db import transaction
 
 from .livro import Livro
 from .user import User
+
+from rest_framework import status
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 
 class Compra(models.Model):
@@ -28,6 +33,30 @@ class Compra(models.Model):
     @property
     def total(self):
         return sum(item.preco * item.quantidade for item in self.itens.all())
+    
+    # @action(detail=True, methods=["POST"], url_path="finalizar")
+    # def finalizar(self, request, pk=None):
+    #     compra = self.get_object()
+    #     if compra.status != Compra.StatusCompra.CARRINHO:
+    #         return Response(
+    #             status=status.HTTP_400_BAD_REQUEST,
+    #             data={"status": "Compra já finalizada"},
+    #         )
+    #     with transaction.atomic():
+    #         for item in compra.itens.all():
+    #             if item.quantidade > item.livro.quantidade:
+    #                 return Response(
+    #                     status=status.HTTP_400_BAD_REQUEST,
+    #                     data={
+    #                         "status": "Quantidade insuficiente",
+    #                         "livro": item.livro.titulo,
+    #                     },                    
+    #                 )
+    #             item.livro.quantidade -= item.quantidade 
+    #             item.livro.save()
+    #         compra.status = Compra.StatusCompra.REALIZADO
+    #         compra.save()
+    #     return Response(status=status.HTTP_200_OK, data={"status": "Compra finalizada"})
 
 
 class ItensCompra(models.Model):
